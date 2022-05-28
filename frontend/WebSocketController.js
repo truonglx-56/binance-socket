@@ -15,7 +15,7 @@ wsController._onConnected = function (frame) {
     }
     this.setConnected(true);
     console.log('Connected: ' + frame);
-    this.stompClient.subscribe('/topic/' + message, this.showMessage, headers);annel
+    this.stompClient.subscribe('/topic/' + message, this.showMessage, headers);
     document.getElementById('disconnect').innerText = "Disconnect " + message + " channel"
 
 };
