@@ -2,9 +2,11 @@ package com.bank.exchange.controller;
 
 import com.bank.exchange.dto.request.SymbolDTO;
 import com.bank.exchange.message.Message;
+import com.bank.exchange.model.Symbol;
 import com.bank.exchange.scraper.BinanceScraper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,13 @@ public class BinanceController {
   }
 
   @PostMapping(value = "/update/symbol", consumes = "application/json")
-  public void updateSymbolBinance(@RequestBody SymbolDTO symbolDTO) {
+  public ResponseEntity<Void> updateSymbolBinance(@RequestBody SymbolDTO symbolDTO) {
 
-    binanceScraper.addSymbol(symbolDTO.getSymbol());
+    Symbol symbol = binanceScraper.addSymbol(symbolDTO.getSymbol());
+    if (symbol != null) {
+      return ResponseEntity.ok().build();
+  } else {
+    return ResponseEntity.badRequest().build();
+  }
   }
 }

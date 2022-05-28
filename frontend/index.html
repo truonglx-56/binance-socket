@@ -14,12 +14,11 @@
 <body onload="wsController.disconnect();">
 <div>
     <div >
-        <label for="text">Add Trading Pairs </label><input type="text" id="text" placeholder="Add trading pairs..."/>
+        <label for="text">Add Trading Pairs </label><input type="text" id="text" onchange="wsController.onChangeText();" placeholder="Add trading pairs..."/>
         <button id="sendMessage" onclick="wsController.sendMessage();">Submit</button>
     </div>
     <a>------------------------------</a>
     <div style="alignment: center;margin-top: auto">
-        <label for="text">Connect to </label><input type="text" id="pricePairs" onchange="wsController.onChangeText();" placeholder="Connect to trading currency pairs channel..."/>
         <button id="connect" onclick="wsController.connect();">Connect</button>
         <button id="disconnect" disabled="disabled" onclick="wsController.disconnect();">
             Disconnect
