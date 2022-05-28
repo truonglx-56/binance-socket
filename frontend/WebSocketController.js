@@ -8,9 +8,12 @@ var headers = {
 };
 
 wsController._onConnected = function(frame) {
+  var channel = document.getElementById('pricePairs').value;
   this.setConnected(true);
   console.log('Connected: ' + frame);
-  this.stompClient.subscribe( '/topic/updatePrice' , this.showMessage, headers);
+  this.stompClient.subscribe( '/topic/'+channel , this.showMessage, headers);
+  document.getElementById('disconnect').innerText = "Disconnect " + channel + " channel"
+
 };
 
 wsController.setConnected = function(connected) {
@@ -19,6 +22,12 @@ wsController.setConnected = function(connected) {
   document.getElementById('mural').style.visibility = connected ? 'visible' : 'hidden';
   document.getElementById('response').innerHTML = '';
 };
+
+wsController.onChangeText = function(connected) {
+  var channel = document.getElementById('pricePairs').value;
+  document.getElementById('connect').innerText =  "Connect " + channel + " channel";
+};
+
 
 wsController.connect = function() {
   var socket = new SockJS('http://54.145.158.156:8005/ws-socket-alert',null);
@@ -36,6 +45,7 @@ wsController.disconnect = function() {
     this.stompClient.disconnect();
   }
   this.setConnected(false);
+  document.getElementById('connect').innerText =  "Connect";
   console.log("Disconnected");
 };
 

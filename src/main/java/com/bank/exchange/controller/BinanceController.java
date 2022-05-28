@@ -6,10 +6,7 @@ import com.bank.exchange.scraper.BinanceScraper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/exchange/binance")
@@ -21,9 +18,9 @@ public class BinanceController {
   @Autowired private BinanceScraper binanceScraper;
 
   @PostMapping(value = "/update/price", consumes = "application/json")
-  public void updatePriceBinance(@RequestBody Message message) {
+  public void updatePriceBinance(@RequestBody Message message, @RequestParam(value = "topic", required = true) String topic) {
 
-    template.convertAndSend("/topic/updatePrice", message);
+    template.convertAndSend("/topic/"+topic, message);
   }
 
   @PostMapping(value = "/update/symbol", consumes = "application/json")

@@ -60,7 +60,7 @@ public class BinanceScraper {
       message.setForeignName(symbol);
       message.setUpdateTime(date);
 
-      notificationService.notify("updatePrice", message);
+      notificationService.notify(symbol, message);
     }
   }
 }
