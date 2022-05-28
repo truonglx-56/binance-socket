@@ -8,14 +8,15 @@ var headers = {
 
 wsController._onConnected = function (frame) {
     var message = document.getElementById('text').value;
+    console.log(message);
     if (message === "" || message === undefined) {
         alert("Fill data to input!")
         return
     }
     this.setConnected(true);
     console.log('Connected: ' + frame);
-    this.stompClient.subscribe('/topic/' + message, this.showMessage, headers);
-    document.getElementById('disconnect').innerText = "Disconnect " + channel + " channel"
+    this.stompClient.subscribe('/topic/' + message, this.showMessage, headers);annel
+    document.getElementById('disconnect').innerText = "Disconnect " + message + " channel"
 
 };
 
